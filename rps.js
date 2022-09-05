@@ -25,24 +25,24 @@ function playRound(PlayerSelection, ComputerSelection){
     /*Standarize PlayerSelection using a helper function and store the result in the same variable*/
     PlayerSelection = capitalizeFirstLetter(PlayerSelection);
     /*Format win string and store it in a variable*/
-    let winString = `You win! {PlayerSelection} beats {ComputerSelection}.`
+    let winString = `You win! {PlayerSelection} beats {ComputerSelection}.`;
     /*Format lose string and store it in a variable*/
-    let loseString = `You lose! {ComputerSelection} beats {PlayerSelection}.`
+    let loseString = `You lose! {ComputerSelection} beats {PlayerSelection}.`;
     /*Format tie string and store it in a variable*/
-    let tieString = `It's a tie.`
+    let tieString = `It's a tie.`;
     /*Create tie condition and return the tie string if true and move on to the losing conditions if false*/
     /*Create the losing conditions for r/p/s vs p/s/r and return the losing string if true*/
     /*If none of the conditions apply return win string*/
     if (PlayerSelection === ComputerSelection){
-        return tieString
+        return tieString;
     } else if (PlayerSelection === "Rock" && ComputerSelection === "Paper"){
-        return loseString
+        return loseString;
     } else if (PlayerSelection === "Paper" && ComputerSelection === "Scissors"){
-        return loseString
+        return loseString;
     } else if (PlayerSelection === "Scissors" && ComputerSelection === "Rock"){
-        return loseString
+        return loseString;
     } else {
-        return winString
+        return winString;
     }
 }
 

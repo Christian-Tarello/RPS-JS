@@ -10,7 +10,15 @@ function capitalizeFirstLetter(word){
 
 function getComputerChoice(){
     /*Get random number between 1 and 3 (inclusive) from a helper function*/
+    let choice = getRandomInteger(1,3);
     /*If the number is 1 return Rock, if it's 2 return Paper and if it's 3 return Scissors*/
+    if (choice === 1){
+        return "Rock";
+    } else if (choice === 2){
+        return "Paper";
+    } else{
+        return "Scissors";
+    }
 }
 
 function playRound(PlayerSelection, ComputerSelection){

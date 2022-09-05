@@ -1,3 +1,13 @@
+function getRandomInteger(min, max){
+    return Math.floor(Math.random() * (max - min + 1) + min);
+}
+
+function capitalizeFirstLetter(word){
+    firstLetter = word.charAt(0).toUpperCase()
+    restOfString = word.slice(1,).toLowerCase()
+    return firstLetter+restOfString
+}
+
 function getComputerChoice(){
     /*Get random number between 1 and 3 (inclusive) from a helper function*/
     /*If the number is 1 return Rock, if it's 2 return Paper and if it's 3 return Scissors*/

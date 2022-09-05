@@ -21,39 +21,72 @@ function getComputerChoice(){
     }
 }
 
-function playRound(playerSelection, computerSelection){
-    /*Standarize PlayerSelection using a helper function and store the result in the same variable*/
-    playerSelection = capitalizeFirstLetter(playerSelection);
-    /*Format win string and store it in a variable*/
-    let winString = `You win! ${playerSelection} beats ${computerSelection}.`;
-    /*Format lose string and store it in a variable*/
-    let loseString = `You lose! ${computerSelection} beats ${playerSelection}.`;
-    /*Format tie string and store it in a variable*/
-    let tieString = `It's a tie.`;
-    /*Create tie condition and return the tie string if true and move on to the losing conditions if false*/
-    /*Create the losing conditions for r/p/s vs p/s/r and return the losing string if true*/
-    /*If none of the conditions apply return win string*/
-    if (playerSelection === computerSelection){
-        return tieString;
-    } else if (playerSelection === "Rock" && computerSelection === "Paper"){
-        return loseString;
-    } else if (playerSelection === "Paper" && computerSelection === "Scissors"){
-        return loseString;
-    } else if (playerSelection === "Scissors" && computerSelection === "Rock"){
-        return loseString;
-    } else {
-        return winString;
+function formatResultString(playerSelection, computerSelection, resultInteger){
+    /*Return tie string if 0, lose string if -1 and win string if 1*/
+    if (resultInteger === 0){
+        return `It's a tie.`;
+    } else if (resultInteger === -1){
+        return `You lose! ${computerSelection} beats ${playerSelection}.`;
+    } else if (resultInteger === 1){
+        return `You win! ${playerSelection} beats ${computerSelection}.`;
     }
 }
 
+function formatGameResultString(tally){
+    let gameResultString = "Game Over! "
+    if (tally>0){
+        return gameResultString+"You won!";
+    } else if (tally == 0){
+        return gameResultString+"It's a tie!";
+    } else{
+        return gameResultString+"You lost!";
+    }
+}
+
+function playRound(playerSelection, computerSelection){
+    /*Evaluate round and return an integer based on the result*/
+    /*Create tie condition and return 0 if true and move on to the losing conditions if false*/
+    /*Create the losing conditions for r/p/s vs p/s/r and return -1 if true*/
+    /*If none of the conditions apply return 1*/
+    if (playerSelection === computerSelection){
+        return 0;
+    } else if (playerSelection === "Rock" && computerSelection === "Paper"){
+        return -1;
+    } else if (playerSelection === "Paper" && computerSelection === "Scissors"){
+        return -1;
+    } else if (playerSelection === "Scissors" && computerSelection === "Rock"){
+        return -1;
+    } else {
+        return 1;
+    }
+}
+
+
 function game(){
+    /*Declare a variable to keep count of wins/losses*/
+    let tally = 0;
+    /*Declare a number of rounds variable*/
+    let rounds = 5
     /*Loop through 5 times*/
-    /*In each loop prompt an answer, run a round and log the result to the console*/
-    for (let i = 0; i<5; i++){
+    for (let i = 0; i<rounds; i++){
+        /*Prompt a user choice and get random computer choice*/
         let playerSelection = prompt("Rock, Paper or Scissors?");
         let computerSelection = getComputerChoice();
-        let result = playRound(playerSelection, computerSelection);
-        console.log(result)
+
+        /*Standarize PlayerSelection using a helper function and store the result in the same variable*/
+        playerSelection = capitalizeFirstLetter(playerSelection);
+
+        /*Play round and return result*/
+        let resultInteger = playRound(playerSelection, computerSelection);
+
+        /*Format result string given the result and log it*/
+        let resultString = formatResultString(playerSelection, computerSelection, resultInteger);
+        console.log(resultString);
+
+        /*Add result to the tally*/
+        tally+=resultInteger;
     }
+    /*Logs final result to console*/
+    console.log(formatGameResultString(tally));
     
 }

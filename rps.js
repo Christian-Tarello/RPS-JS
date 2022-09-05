@@ -3,9 +3,9 @@ function getRandomInteger(min, max){
 }
 
 function capitalizeFirstLetter(word){
-    firstLetter = word.charAt(0).toUpperCase()
-    restOfString = word.slice(1,).toLowerCase()
-    return firstLetter+restOfString
+    let firstLetter = word.charAt(0).toUpperCase();
+    let restOfString = word.slice(1,).toLowerCase();
+    return firstLetter+restOfString;
 }
 
 function getComputerChoice(){

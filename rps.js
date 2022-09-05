@@ -21,25 +21,25 @@ function getComputerChoice(){
     }
 }
 
-function playRound(PlayerSelection, ComputerSelection){
+function playRound(playerSelection, computerSelection){
     /*Standarize PlayerSelection using a helper function and store the result in the same variable*/
-    PlayerSelection = capitalizeFirstLetter(PlayerSelection);
+    playerSelection = capitalizeFirstLetter(playerSelection);
     /*Format win string and store it in a variable*/
-    let winString = `You win! {PlayerSelection} beats {ComputerSelection}.`;
+    let winString = `You win! ${playerSelection} beats ${computerSelection}.`;
     /*Format lose string and store it in a variable*/
-    let loseString = `You lose! {ComputerSelection} beats {PlayerSelection}.`;
+    let loseString = `You lose! ${computerSelection} beats ${playerSelection}.`;
     /*Format tie string and store it in a variable*/
     let tieString = `It's a tie.`;
     /*Create tie condition and return the tie string if true and move on to the losing conditions if false*/
     /*Create the losing conditions for r/p/s vs p/s/r and return the losing string if true*/
     /*If none of the conditions apply return win string*/
-    if (PlayerSelection === ComputerSelection){
+    if (playerSelection === computerSelection){
         return tieString;
-    } else if (PlayerSelection === "Rock" && ComputerSelection === "Paper"){
+    } else if (playerSelection === "Rock" && computerSelection === "Paper"){
         return loseString;
-    } else if (PlayerSelection === "Paper" && ComputerSelection === "Scissors"){
+    } else if (playerSelection === "Paper" && computerSelection === "Scissors"){
         return loseString;
-    } else if (PlayerSelection === "Scissors" && ComputerSelection === "Rock"){
+    } else if (playerSelection === "Scissors" && computerSelection === "Rock"){
         return loseString;
     } else {
         return winString;
@@ -49,4 +49,11 @@ function playRound(PlayerSelection, ComputerSelection){
 function game(){
     /*Loop through 5 times*/
     /*In each loop prompt an answer, run a round and log the result to the console*/
+    for (let i = 0; i<5; i++){
+        let playerSelection = prompt("Rock, Paper or Scissors?");
+        let computerSelection = getComputerChoice();
+        let result = playRound(playerSelection, computerSelection);
+        console.log(result)
+    }
+    
 }

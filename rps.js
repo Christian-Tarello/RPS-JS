@@ -43,6 +43,17 @@ function formatGameResultString(tally){
     }
 }
 
+function sanitizePlayerInput(playerSelection){
+    /*Make sure player input is suitable for the game and prompt the use again if not*/
+    playerSelection = capitalizeFirstLetter(playerSelection);
+    while (playerSelection !== "Rock" && playerSelection !== "Paper" && playerSelection !== "Scissors"){
+        playerSelection = prompt("Invalid choice, choose again. Rock, Paper or Scissors?");
+        playerSelection = capitalizeFirstLetter(playerSelection);
+    }
+    return playerSelection;
+    
+}
+
 function playRound(playerSelection, computerSelection){
     /*Evaluate round and return an integer based on the result*/
     /*Create tie condition and return 0 if true and move on to the losing conditions if false*/
@@ -61,7 +72,6 @@ function playRound(playerSelection, computerSelection){
     }
 }
 
-
 function game(){
     /*Declare a variable to keep count of wins/losses*/
     let tally = 0;
@@ -74,7 +84,7 @@ function game(){
         let computerSelection = getComputerChoice();
 
         /*Standarize PlayerSelection using a helper function and store the result in the same variable*/
-        playerSelection = capitalizeFirstLetter(playerSelection);
+        playerSelection = sanitizePlayerInput(playerSelection);
 
         /*Play round and return result*/
         let resultInteger = playRound(playerSelection, computerSelection);
@@ -87,6 +97,5 @@ function game(){
         tally+=resultInteger;
     }
     /*Logs final result to console*/
-    console.log(formatGameResultString(tally));
-    
+    console.log(formatGameResultString(tally));  
 }

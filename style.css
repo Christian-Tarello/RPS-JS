@@ -54,3 +54,18 @@ body {
     justify-content: center;
     gap: 100px;
 }
+
+.round-result{
+    margin : 1px 0px;
+    padding : 0px;
+}
+
+.round-won{
+    color : #7db700;
+    background-color : #7db70033;
+}
+
+.round-lost{
+    color : #FF0000;
+    background-color : #FF000033;
+}

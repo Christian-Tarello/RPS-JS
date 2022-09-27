@@ -91,6 +91,7 @@ function game(){
 
         /*Format result string given the result and log it*/
         let resultString = formatResultString(playerSelection, computerSelection, resultInteger);
+        showResult(resultString, resultInteger)
         console.log(resultString);
 
         /*Add result to the tally*/
@@ -98,4 +99,21 @@ function game(){
     }
     /*Logs final result to console*/
     console.log(formatGameResultString(tally));  
+}
+
+function showResult(string, resultInteger){
+    const resultBox = document.querySelector(".results-container");
+
+    const displayText = document.createElement("div")
+
+    displayText.textContent = string;
+    displayText.classList.add("round");
+
+    if (resultInteger === -1){
+        displayText.classList.add("round-lost");
+    } else if (resultInteger === 1){
+        displayText.classList.add("round-won");
+    }
+
+    resultBox.appendChild(displayText);
 }

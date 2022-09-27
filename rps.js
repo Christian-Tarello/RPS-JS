@@ -101,6 +101,16 @@ function game(){
     console.log(formatGameResultString(tally));  
 }
 
+
+function chooseRPS(){
+    const playerSelection = this.name;
+    const computerSelection = getComputerChoice();
+    const resultInteger = playRound(playerSelection, computerSelection);
+    const resultString = formatResultString(playerSelection, computerSelection, resultInteger);
+    showResult(resultString, resultInteger)
+    //Update tally and end game either player has 5 points
+}
+
 function showResult(string, resultInteger){
     const resultBox = document.querySelector(".results-container");
 
@@ -117,3 +127,6 @@ function showResult(string, resultInteger){
 
     resultBox.appendChild(displayText);
 }
+
+const choices = document.querySelectorAll(".rps-choice");
+choices.forEach((choice) => choice.addEventListener('click', chooseRPS));

@@ -114,6 +114,19 @@ function updateTally(resultInteger) {
     }
 }
 
+function getGameStatus() {
+    const playerTally = document.querySelector("#player-counter")
+    const computerTally = document.querySelector("#opponent-counter")
+
+    if (playerTally.textContent === "5") {
+        return 1;
+    } else if (computerTally.textContent === "5") {
+        return -1;
+    } else {
+        return 0;
+    }
+}
+
 
 function chooseRPS(){
     const playerSelection = this.name;
@@ -122,8 +135,11 @@ function chooseRPS(){
     const resultString = formatResultString(playerSelection, computerSelection, resultInteger);
     showResult(resultString, resultInteger)
     updateTally(resultInteger)
-    //Update tally and end game either player has 5 points
-
+    const gameStatus = getGameStatus();
+    if (gameStatus !== 0){
+        const gameOverString = formatGameResultString(gameStatus);
+        showResult(gameOverString, resultInteger)
+    }
 }
 
 function showResult(string, resultInteger){

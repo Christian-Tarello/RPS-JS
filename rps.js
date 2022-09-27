@@ -2,12 +2,6 @@ function getRandomInteger(min, max){
     return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
-function capitalizeFirstLetter(word){
-    let firstLetter = word.charAt(0).toUpperCase();
-    let restOfString = word.slice(1,).toLowerCase();
-    return firstLetter+restOfString;
-}
-
 function getComputerChoice(){
     /*Get random number between 1 and 3 (inclusive) from a helper function*/
     let choice = getRandomInteger(1,3);
@@ -32,27 +26,17 @@ function formatResultString(playerSelection, computerSelection, resultInteger){
     }
 }
 
-function formatGameResultString(tally){
+function formatGameResultString(gameStatus){
     let gameResultString = "Game Over! "
-    if (tally>0){
+    if (gameStatus>0){
         return gameResultString+"You won!";
-    } else if (tally == 0){
+    } else if (gameStatus == 0){
         return gameResultString+"It's a tie!";
     } else{
         return gameResultString+"You lost!";
     }
 }
 
-function sanitizePlayerInput(playerSelection){
-    /*Make sure player input is suitable for the game and prompt the use again if not*/
-    playerSelection = capitalizeFirstLetter(playerSelection);
-    while (playerSelection !== "Rock" && playerSelection !== "Paper" && playerSelection !== "Scissors"){
-        playerSelection = prompt("Invalid choice, choose again. Rock, Paper or Scissors?");
-        playerSelection = capitalizeFirstLetter(playerSelection);
-    }
-    return playerSelection;
-    
-}
 
 function playRound(playerSelection, computerSelection){
     /*Evaluate round and return an integer based on the result*/
@@ -70,35 +54,6 @@ function playRound(playerSelection, computerSelection){
     } else {
         return 1;
     }
-}
-
-function game(){
-    /*Declare a variable to keep count of wins/losses*/
-    let tally = 0;
-    /*Declare a number of rounds variable*/
-    let rounds = 5
-    /*Loop through 5 times*/
-    for (let i = 0; i<rounds; i++){
-        /*Prompt a user choice and get random computer choice*/
-        let playerSelection = prompt("Rock, Paper or Scissors?");
-        let computerSelection = getComputerChoice();
-
-        /*Standarize PlayerSelection using a helper function and store the result in the same variable*/
-        playerSelection = sanitizePlayerInput(playerSelection);
-
-        /*Play round and return result*/
-        let resultInteger = playRound(playerSelection, computerSelection);
-
-        /*Format result string given the result and log it*/
-        let resultString = formatResultString(playerSelection, computerSelection, resultInteger);
-        showResult(resultString, resultInteger)
-        console.log(resultString);
-
-        /*Add result to the tally*/
-        tally+=resultInteger;
-    }
-    /*Logs final result to console*/
-    console.log(formatGameResultString(tally));  
 }
 
 function updateTally(resultInteger) {
@@ -127,21 +82,6 @@ function getGameStatus() {
     }
 }
 
-
-function chooseRPS(){
-    const playerSelection = this.name;
-    const computerSelection = getComputerChoice();
-    const resultInteger = playRound(playerSelection, computerSelection);
-    const resultString = formatResultString(playerSelection, computerSelection, resultInteger);
-    showResult(resultString, resultInteger)
-    updateTally(resultInteger)
-    const gameStatus = getGameStatus();
-    if (gameStatus !== 0){
-        const gameOverString = formatGameResultString(gameStatus);
-        showResult(gameOverString, resultInteger)
-    }
-}
-
 function showResult(string, resultInteger){
     const resultBox = document.querySelector(".results-container");
 
@@ -157,6 +97,34 @@ function showResult(string, resultInteger){
     }
 
     resultBox.appendChild(displayText);
+}
+
+function restartGame() {
+    const resultBox = document.querySelector(".results-container");
+    while (resultBox.firstChild) {
+        resultBox.removeChild(resultBox.firstChild);
+    }
+
+    const playerTally = document.querySelector("#player-counter");
+    const computerTally = document.querySelector("#opponent-counter");
+
+    playerTally.textContent = "0";
+    computerTally.textContent = "0";
+}
+
+function chooseRPS(){
+    if (getGameStatus()) return restartGame();
+    const playerSelection = this.name;
+    const computerSelection = getComputerChoice();
+    const resultInteger = playRound(playerSelection, computerSelection);
+    const resultString = formatResultString(playerSelection, computerSelection, resultInteger);
+    showResult(resultString, resultInteger)
+    updateTally(resultInteger)
+    const gameStatus = getGameStatus();
+    if (gameStatus !== 0){
+        const gameOverString = formatGameResultString(gameStatus);
+        showResult(gameOverString, resultInteger)
+    }
 }
 
 const choices = document.querySelectorAll(".rps-choice");

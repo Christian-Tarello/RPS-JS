@@ -101,6 +101,19 @@ function game(){
     console.log(formatGameResultString(tally));  
 }
 
+function updateTally(resultInteger) {
+    if (resultInteger===0) return;
+
+    const playerTally = document.querySelector("#player-counter")
+    const computerTally = document.querySelector("#opponent-counter")
+
+    if (resultInteger === 1){
+        playerTally.textContent = +playerTally.textContent + 1;
+    } else {
+        computerTally.textContent = +computerTally.textContent + 1;
+    }
+}
+
 
 function chooseRPS(){
     const playerSelection = this.name;
@@ -108,7 +121,9 @@ function chooseRPS(){
     const resultInteger = playRound(playerSelection, computerSelection);
     const resultString = formatResultString(playerSelection, computerSelection, resultInteger);
     showResult(resultString, resultInteger)
+    updateTally(resultInteger)
     //Update tally and end game either player has 5 points
+
 }
 
 function showResult(string, resultInteger){
